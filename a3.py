@@ -8,11 +8,14 @@
 # kellany@uci.edu
 # 28388886
 
-import ui as ui
-import Profile as Profile
-import admin as admin
-import user as user
-from pathlib import Path
+"""
+Main file that begins program which will run admin,
+user, and trigger the UI
+"""
+
+import ui
+import admin
+import user
 
 # PATH: C:\Users\kella\OneDrive\Desktop\ICS32Again\Assignment3
 # E -usr "mark b" -pwd "password123" -bio "test bio"

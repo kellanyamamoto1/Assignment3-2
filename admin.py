@@ -5,11 +5,14 @@
 # 28388886
 # kellany@uci.edu
 
-from pathlib import Path
-import ui as ui
-import a3 as a3
+"""
+Module that processes the admin mode.
+Will print the Admin syntax instructions
+"""
 
-admin_instructions = """Print Full File using syntax:
+import ui
+
+ADMIN_INSTRUCTIONS = """Print Full File using syntax:
 [COMMAND] [INPUT] [[-]OPTION] [INPUT]
 -------------------------------------
 """
@@ -17,6 +20,11 @@ admin_instructions = """Print Full File using syntax:
 
 def start():
     print("ADMIN MODE ENABLED")
-    print(admin_instructions)
+    print(ADMIN_INSTRUCTIONS)
     ui.adminis(1)
     ui.commands()
+
+    """
+    Function will start when program is initalized,
+    will print telling the person admin mode is enabled
+    """

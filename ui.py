@@ -9,16 +9,18 @@
 # kellany@uci.edu
 # 28388886
 
+"""
+UI for all commands passed through the Admin and User Modules
+"""
+
 import pathlib
 from pathlib import Path
 from Profile import Profile, Post
-import ui as ui
-import admin as admin
-import user as user
-administrator = False
+import admin
+ADMINISTRATOR = False
 temp_path = ''
 
-command_list = """
+COMMAND_LIST = """
 Q -- Quit the program
 C -- Create a new file in a specified path
 D -- Deleted a file
@@ -34,12 +36,11 @@ P -- Print a file
 
 
 def commands():
-    print(command_list)
+    print(COMMAND_LIST)
     user_input = input("Input command with path and desired file: ").split(" ")
     command = user_input[0]
     directory = user_input[1] if len(user_input) > 1 else None
-    options = user_input[2] if len(user_input) > 2 else None
-    name = user_input[3] if len(user_input) > 3 else None
+
     if command == "admin":
         admin.start()
     else:
@@ -66,8 +67,18 @@ def commands():
         elif command == 'P':
             print_file_data(" ".join(user_input))
 
+    """
+    Function that will process each of the commands input by the user
+    will also separate input into different sections to process
+    """
+
 
 def user_check():
+    """
+    Function that will run immediately after program initialized
+    will ask if person is user or admin and sort accordingly
+    """
+
     user_type = input("admin or user?: ")
     temp = 0
     if user_type == "admin":
@@ -78,20 +89,13 @@ def user_check():
 
 
 def adminis(num):
-    global administrator
+    global ADMINISTRATOR
     if num == 1:
-        administrator = True
+        ADMINISTRATOR = True
     else:
-        administrator = False
-    return administrator
+        ADMINISTRATOR = False
+    return ADMINISTRATOR
 
-
-"""
-- Create file - fix admin
-- Edit file - updated values are fucked up
-- check for admin in all sections
-- style checker
-"""
 
 
 def get_path():
@@ -108,7 +112,7 @@ def file_name():
 
 def open_file(file_path):
     global temp_path
-    if administrator:
+    if ADMINISTRATOR:
         path = file_path.split(' ')
         temp_path = file_path
         f = open(temp_path, 'a')
@@ -204,21 +208,24 @@ def print_file_data(user_input):
             print(f"  Post {i}: {post}")
     commands()
 
-    pass
+    """
+    Function will print the file data inside the DSU file
+    Will print desired information 
+    """
 
 
 def create_file(user_input):
     global temp_path
     items = user_input
-    if administrator:
+    if ADMINISTRATOR:
         paths = items
         if len(paths) > 1:
             path = paths[1]
             if '-n' in paths:
                 n_index = paths.index('-n')
                 temp = n_index + 1
-                fileName = paths[temp]
-                file_ext = fileName + '.dsu'
+                file_title = paths[temp]
+                file_ext = file_title + '.dsu'
                 filepath = Path(path) / file_ext
                 username = input("Enter username: ")
                 password = input("Enter password: ")
