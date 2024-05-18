@@ -53,7 +53,7 @@ def format_for_json(action_type, username, password, user_token=None, message=No
         })
   elif action_type == 'bio':
         if not user_token:
-            raise ValueError("go get it bruh bruh")
+            raise ValueError("womp")
         formated = json.dumps({
             "token": user_token,
             "bio": {

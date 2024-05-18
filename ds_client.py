@@ -75,6 +75,6 @@ def send(server:str, port:int, username:str, password:str, message:str, bio:str=
       else:
           print("Invalid response from server")
           return False
-  except Exception as e:
-    print(f"there was an error:  {e}")
+  except Exception as exerr:
+    print(f"there was an error:  {exerr}")
   return 
