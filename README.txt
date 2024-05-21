@@ -1,1 +1,1 @@
-Bruh
+In this assignment, we modify the second assignment to communicate with a server and post messages to it

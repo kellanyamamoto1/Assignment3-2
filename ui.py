@@ -17,6 +17,10 @@ import pathlib
 from pathlib import Path
 from Profile import Profile, Post
 import admin
+import user
+
+SERVER_ADDRESS = "168.235.86.101"
+SERVER_PORT = "3021"
 ADMINISTRATOR = False
 temp_path = ''
 
@@ -49,7 +53,7 @@ def commands():
             quit()
         elif command == 'R':
             if directory:
-                read_file(directory)
+                read_file(user_input)
             else:
                 print("ERROR")
         elif command == 'C':
@@ -59,7 +63,7 @@ def commands():
                 delete_file(directory)
         elif command == 'O':
             if directory:
-                open_file(directory)
+                open_file(user_input)
             else:
                 print("ERROR")
         elif command == 'E':
@@ -110,11 +114,11 @@ def file_name():
     return name
 
 
-def open_file(file_path):
+def open_file(user_input):
     global temp_path
     if ADMINISTRATOR:
-        path = file_path.split(' ')
-        temp_path = file_path
+        path = user_input.split(' ')
+        temp_path = path[1]
         f = open(temp_path, 'a')
         print(temp_path + " has been opened as administrator")
         return temp_path
@@ -123,9 +127,11 @@ def open_file(file_path):
         print("With the file extention,")
         name = file_name()
         temp_path = path + name + '.dsu'
-        f = open(temp_path, 'r')
+        f = open(temp_path, 'r+')
         print(temp_path + ' Has been opened')
-        print(f.read())
+        for line in f:
+            print("File Opened: ")
+            print(line.strip())
     commands()
     return temp_path
 
@@ -282,17 +288,36 @@ def delete_file(file_path):
         print("File in directory not found")
 
 
-def read_file(file_path):
-    if file_path.endswith('.dsu'):
-        path = pathlib.Path(file_path)
-        if path.exists() and path.is_file():
-            with open(path, 'r') as file:
-                content = file.read()[:-1]
-                if not content:
-                    print("EMPTY")
-                else:
-                    print(content)
-        else:
-            print(f"File '{file_path}' not found")
+def read_file(a):
+    if ADMINISTRATOR:
+        paths = a.split(' ')
+        path = paths[1]
+        if path[-3:] == 'dsu':
+            if user.check_file(path):
+                with open(path, 'r') as p:
+                    l = p.readlines()
+                    if len(l) > 0:
+                        for i in l:
+                            print(i, end='')
+                    else:
+                        print("EMPTY")
+            elif not user.check_file(path):
+                print("no such file exists")
+        print("")
     else:
-        print("ERROR")
+        path = get_path()
+        if path[-3:] == 'dsu':
+            if user.check_file(path):
+                with open(path, 'r') as p:
+                    l = p.readlines()
+                    if len(l) > 0:
+                        for i in l:
+                            print(i, end='')
+                    else:
+                        print("EMPTY")
+            elif not user.check_file(path):
+                print("no such file exists") 
+        else:
+            print("please enter a file with \".dsu\" extention")
+    print("")
+    commands()
