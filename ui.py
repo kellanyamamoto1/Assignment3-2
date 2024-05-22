@@ -101,7 +101,6 @@ def adminis(num):
     return ADMINISTRATOR
 
 
-
 def get_path():
     print("Please enter a path")
     path = input()
@@ -216,7 +215,7 @@ def print_file_data(user_input):
 
     """
     Function will print the file data inside the DSU file
-    Will print desired information 
+    Will print desired information
     """
 
 
@@ -288,16 +287,16 @@ def delete_file(file_path):
         print("File in directory not found")
 
 
-def read_file(a):
+def read_file(user_input):
     if ADMINISTRATOR:
-        paths = a.split(' ')
+        paths = user_input.split(' ')
         path = paths[1]
         if path[-3:] == 'dsu':
             if user.check_file(path):
                 with open(path, 'r') as p:
-                    l = p.readlines()
-                    if len(l) > 0:
-                        for i in l:
+                    line = p.readlines()
+                    if len(line) > 0:
+                        for i in line:
                             print(i, end='')
                     else:
                         print("EMPTY")
@@ -309,14 +308,14 @@ def read_file(a):
         if path[-3:] == 'dsu':
             if user.check_file(path):
                 with open(path, 'r') as p:
-                    l = p.readlines()
-                    if len(l) > 0:
-                        for i in l:
+                    line = p.readlines()
+                    if len(line) > 0:
+                        for i in line:
                             print(i, end='')
                     else:
                         print("EMPTY")
             elif not user.check_file(path):
-                print("no such file exists") 
+                print("no such file exists")
         else:
             print("please enter a file with \".dsu\" extention")
     print("")
