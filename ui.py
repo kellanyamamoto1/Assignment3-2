@@ -60,13 +60,9 @@ def commands():
         elif command == 'C':
             create_file(user_input)
         elif command == 'D':
-            if directory:
-                delete_file(directory)
+            delete_file(directory)
         elif command == 'O':
-            if directory:
-                open_file(user_input)
-            else:
-                print("ERROR")
+            open_file(user_input)
         elif command == 'E':
             edit_file(" ".join(user_input))
         elif command == 'P':
