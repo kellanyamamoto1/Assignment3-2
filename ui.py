@@ -41,6 +41,9 @@ P -- Print a file
 
 
 def commands():
+    """
+    List of commands that runs whenever the program starts
+    """
     print(COMMAND_LIST)
     user_input = input("Input command with path and desired file: ").split(" ")
     command = user_input[0]
@@ -113,7 +116,7 @@ def get_path():
 
 def file_name():
     '''
-    user function to ask for file name 
+    user function to ask for file name
     '''
     name = input("Please enter a file name without file extenstion:")
     return name
@@ -125,11 +128,9 @@ def open_file(user_input):
     '''
     global temp_path
     if ADMINISTRATOR:
-        #path = user_input.split(' ')
         temp_path = user_input[1]
         f = open(temp_path, 'a')
         print(temp_path + " has been opened as administrator")
-        #return temp_path
     else:
         path = get_path()
         print("With the file extention,")
@@ -194,7 +195,7 @@ def edit_file(user_input):
         profile = Profile()
         print("Enter a dsu file path:")
         temp_path = input()
-        profile.load_profile(path = temp_path)
+        profile.load_profile(path=temp_path)
         print("what would you like to edit?")
         print("\"-usr\" to update the username")
         print("\"-pwd\" to update password")
@@ -228,7 +229,6 @@ def edit_file(user_input):
                 send(serv, port, username, password, message)
 
     commands()
-
 
 
 def print_file_data(user_input):
@@ -290,7 +290,8 @@ def create_file(user_input):
                 username = input("Enter username: ")
                 password = input("Enter password: ")
                 bio = input("Enter Bio: ")
-                profile = Profile(username=username, password=password, bio=bio)
+                profile = Profile(
+                    username=username, password=password, bio=bio)
                 with open(filepath, 'a') as f:
                     print("")
                 f = open(filepath, 'a')

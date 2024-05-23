@@ -6,6 +6,7 @@ from pathlib import Path
 import admin as admin
 import ui as ui
 
+
 def check_file(user_input):
     """
     Checks if file exists in path
@@ -14,6 +15,7 @@ def check_file(user_input):
         return True
     else:
         return False
+
 
 def start():
     """
