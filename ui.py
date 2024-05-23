@@ -93,6 +93,9 @@ def user_check():
 
 
 def adminis(num):
+    """
+    Function will check if person is admin or not
+    """
     global ADMINISTRATOR
     if num == 1:
         ADMINISTRATOR = True
@@ -102,6 +105,9 @@ def adminis(num):
 
 
 def get_path():
+    """
+    get path function for user path
+    """
     print("Please enter a path")
     path = input()
     path = path + '\\'
@@ -109,11 +115,17 @@ def get_path():
 
 
 def file_name():
+    '''
+    user function to ask for file name 
+    '''
     name = input("Please enter a file name without file extenstion:")
     return name
 
 
 def open_file(user_input):
+    '''
+    Function to open file, used to edit and print file contents
+    '''
     global temp_path
     if ADMINISTRATOR:
         path = user_input.split(' ')
@@ -136,6 +148,9 @@ def open_file(user_input):
 
 
 def edit_file(user_input):
+    '''
+    Function to edit file after it has been opened
+    '''
     get_path()
     print("To use 'E', use syntax: 'E [-]OPTION] [INPUT] ")
     lisp = user_input
@@ -182,6 +197,9 @@ def edit_file(user_input):
 
 
 def print_file_data(user_input):
+    '''
+    Function to print the file data to the screen
+    '''
     options = user_input.split()[1:]
 
     global temp_path
@@ -220,6 +238,9 @@ def print_file_data(user_input):
 
 
 def create_file(user_input):
+    '''
+    Function to create a file/profile from the person
+    '''
     global temp_path
     items = user_input
     if ADMINISTRATOR:
@@ -274,6 +295,9 @@ def create_file(user_input):
 
 
 def delete_file(file_path):
+    '''
+    Function to delete profile from file list
+    '''
     suffix = ".dsu"
     if file_path.endswith(suffix):
         path = pathlib.Path(file_path)
@@ -288,6 +312,9 @@ def delete_file(file_path):
 
 
 def read_file(user_input):
+    '''
+    Function to read profile contents after it has been opened
+    '''
     if ADMINISTRATOR:
         paths = user_input.split(' ')
         path = paths[1]
