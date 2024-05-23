@@ -16,6 +16,7 @@ UI for all commands passed through the Admin and User Modules
 import pathlib
 from pathlib import Path
 from Profile import Profile, Post
+from ds_client import send
 import admin
 import user
 
@@ -128,11 +129,11 @@ def open_file(user_input):
     '''
     global temp_path
     if ADMINISTRATOR:
-        path = user_input.split(' ')
-        temp_path = path[1]
+        #path = user_input.split(' ')
+        temp_path = user_input[1]
         f = open(temp_path, 'a')
         print(temp_path + " has been opened as administrator")
-        return temp_path
+        #return temp_path
     else:
         path = get_path()
         print("With the file extention,")
@@ -151,49 +152,87 @@ def edit_file(user_input):
     '''
     Function to edit file after it has been opened
     '''
-    get_path()
     print("To use 'E', use syntax: 'E [-]OPTION] [INPUT] ")
-    lisp = user_input
-    bio_index = lisp.find('-bio')
-    bio = lisp[bio_index + 1]
-    if bio_index != -1:
-        start_quote = user_input.find('"', bio_index)
-        end_quote = user_input.find('"', start_quote + 1)
-        if start_quote != -1 and end_quote != -1:
-            bio = user_input[start_quote + 1:end_quote]
+    if ADMINISTRATOR:
+        lisp = user_input.split(' ')
+        bio_index = lisp.find('-bio')
+        bio = ''
+        if bio_index != -1:
+            start_quote = user_input.find('"', bio_index)
+            end_quote = user_input.find('"', start_quote + 1)
+            if start_quote != -1 and end_quote != -1:
+                bio = user_input[start_quote + 1:end_quote]
 
-    profile = Profile()
-    profile.load_profile(path=temp_path)
+        profile = Profile()
+        profile.load_profile(path=temp_path)
 
-    if '-usr' in lisp:
-        usr_index = lisp.index('-usr')
-        new_usr = ' '.join(lisp[usr_index + 1:]).strip('"')
-        profile.username = new_usr
-        profile.save_profile(temp_path)
-        print("username updated")
-    if '-pwd' in lisp:
-        pwd_index = lisp.index('-pwd')
-        new_pwd = lisp[pwd_index + 1]
-        profile.password = new_pwd.strip('"')
-        profile.save_profile(temp_path)
-        print("password updated")
-    if '-bio' in lisp:
-        profile.bio = bio.strip('"')
-        profile.save_profile(path=temp_path)
-        print("bio updated")
-    if '-addpost' in lisp:
-        post_index = lisp.index('-addpost')
-        post_content = ' '.join(lisp[post_index + 1:])
-        new_post = Post(post_content)
-        profile.add_post(new_post)
-        profile.save_profile(temp_path)
-        print("post added")
-    if '-delpost' in lisp:
-        del_index = lisp.index('-delpost')
-        del_content = ''.join(lisp[del_index + 1:])
-        profile.del_post(del_content)
-        print("Post Deleted")
+        if '-usr' in lisp:
+            usr_index = lisp.index('-usr')
+            new_usr = ' '.join(lisp[usr_index + 1:]).strip('"')
+            profile.username = new_usr
+            profile.save_profile(temp_path)
+            print("username updated")
+        if '-pwd' in lisp:
+            pwd_index = lisp.index('-pwd')
+            new_pwd = lisp[pwd_index + 1]
+            profile.password = new_pwd.strip('"')
+            profile.save_profile(temp_path)
+            print("password updated")
+        if '-bio' in lisp:
+            profile.bio = bio.strip('"')
+            profile.save_profile(path=temp_path)
+            print("bio updated")
+        if '-addpost' in lisp:
+            post_index = lisp.index('-addpost')
+            post_content = ' '.join(lisp[post_index + 1:])
+            new_post = Post(post_content)
+            profile.add_post(new_post)
+            profile.save_profile(temp_path)
+            print("post added")
+        if '-delpost' in lisp:
+            del_index = lisp.index('-delpost')
+            del_content = ''.join(lisp[del_index + 1:])
+            profile.del_post(del_content)
+            print("Post Deleted")
+    else:
+        profile = Profile()
+        print("Enter a dsu file path:")
+        temp_path = input()
+        profile.load_profile(path = temp_path)
+        print("what would you like to edit?")
+        print("\"-usr\" to update the username")
+        print("\"-pwd\" to update password")
+        print("\"-bio\" to update bio")
+        print("\"-addpost\" to add a post")
+        user_in = str(input())
+        if "-usr" in user_in:
+            new = str(input("enter new username: "))
+            profile.username = new
+            profile.save_profile(temp_path)
+        elif "-pwd" in user_in:
+            new = str(input("enter new password: "))
+            profile.password = new
+            profile.save_profile(temp_path)
+        elif "-bio" in user_in:
+            new = str(input("enter new bio: "))
+            profile.bio = new
+            profile.save_profile(temp_path)
+        elif "-addpost" in user_in:
+            post_content = input("Enter new post: ")
+            new_post = Post(post_content)
+            profile.add_post(new_post)
+            profile.save_profile(temp_path)
+            temp = input("would you like to post this on a server?  Y/N:    ")
+            if temp == "Y":
+                serv = input("please input a server ip address:   ")
+                port = 3021
+                username = profile.username
+                password = profile.password
+                message = post_content
+                send(serv, port, username, password, message)
+
     commands()
+
 
 
 def print_file_data(user_input):
@@ -201,7 +240,6 @@ def print_file_data(user_input):
     Function to print the file data to the screen
     '''
     options = user_input.split()[1:]
-
     global temp_path
     profile = Profile()
     profile.load_profile(temp_path)
@@ -256,8 +294,7 @@ def create_file(user_input):
                 username = input("Enter username: ")
                 password = input("Enter password: ")
                 bio = input("Enter Bio: ")
-                profile = Profile(
-                    username=username, password=password, bio=bio)
+                profile = Profile(username=username, password=password, bio=bio)
                 with open(filepath, 'a') as f:
                     print("")
                 f = open(filepath, 'a')
@@ -288,6 +325,7 @@ def create_file(user_input):
                 f.write(b)
             profile.save_profile(path=line)
             f = open(line, 'a')
+            temp_path = the_path
         else:
             print("Must follow: [COMMAND] [[-]OPTION]syntax ")
     commands()

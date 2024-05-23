@@ -94,7 +94,7 @@ class Profile:
 
     """
 
-    def __init__(self, dsuserver=None, username=None, password=None):
+    def __init__(self, dsuserver=None, username=None, password=None, bio=None):
         self.dsuserver = dsuserver # REQUIRED
         self.username = username # REQUIRED
         self.password = password # REQUIRED
