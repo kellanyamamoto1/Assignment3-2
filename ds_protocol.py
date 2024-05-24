@@ -1,3 +1,6 @@
+'''
+Modified given file to connect to server
+'''
 # ds_protocol.py
 
 # Starter code for assignment 3 in ICS 32 Programming with Software

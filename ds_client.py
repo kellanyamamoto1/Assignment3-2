@@ -1,3 +1,6 @@
+'''
+Modified given file to connect to server
+'''
 # Starter code for assignment 3 in ICS 32 Programming with Software
 # Libraries in Python
 
@@ -55,20 +58,24 @@ def send(
             if message:
                 action = "post"
                 formatted_message = ds_protocol.format_for_json(
-                    action, username, password, user_token=token, message=message, bio=bio)
+                    action, username, password, user_token=token,
+                    message=message, bio=bio)
                 print(formatted_message)
             elif bio:
                 action = "bio"
                 formatted_message = ds_protocol.format_for_json(
-                    action, username, password, user_token=token, message=message, bio=bio)
+                    action, username, password, user_token=token,
+                    message=message, bio=bio)
                 print(formatted_message)
             else:
                 action = "join"
                 formatted_message = ds_protocol.format_for_json(
-                    action, username, password, user_token=token, message=message, bio=bio)
+                    action, username, password, user_token=token,
+                    message=message, bio=bio)
                 print(formatted_message)
             formatted_message = ds_protocol.format_for_json(
-                action, username, password, user_token=token, message=message, bio=bio)
+                action, username, password, user_token=token,
+                message=message, bio=bio)
             print(formatted_message)
             data_str = json.dumps(formatted_message)
             print(f"{data_str}")

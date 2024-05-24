@@ -1,3 +1,6 @@
+"""
+UI for all commands passed through the Admin and User Modules
+"""
 # ui.py
 
 # Starter code for assignment 2 in ICS 32 Programming with Software
@@ -8,10 +11,6 @@
 # Kellan Yamamoto
 # kellany@uci.edu
 # 28388886
-
-"""
-UI for all commands passed through the Admin and User Modules
-"""
 
 import pathlib
 from pathlib import Path
@@ -71,11 +70,6 @@ def commands():
         elif command == 'P':
             print_file_data(" ".join(user_input))
 
-    """
-    Function that will process each of the commands input by the user
-    will also separate input into different sections to process
-    """
-
 
 def user_check():
     """
@@ -131,7 +125,6 @@ def open_file(user_input):
         temp_path = user_input[1]
         f = open(temp_path, 'a')
         print(temp_path + " has been opened as administrator")
-        
     else:
         path = get_path()
         name = file_name()

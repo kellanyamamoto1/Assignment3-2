@@ -19,12 +19,11 @@ ADMIN_INSTRUCTIONS = """Print Full File using syntax:
 
 
 def start():
-    print("ADMIN MODE ENABLED")
-    print(ADMIN_INSTRUCTIONS)
-    ui.adminis(1)
-    ui.commands()
-
     """
     Function will start when program is initalized,
     will print telling the person admin mode is enabled
     """
+    print("ADMIN MODE ENABLED")
+    print(ADMIN_INSTRUCTIONS)
+    ui.adminis(1)
+    ui.commands()

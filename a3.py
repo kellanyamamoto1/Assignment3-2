@@ -1,3 +1,7 @@
+"""
+Main file that begins program which will run admin,
+user, and trigger the UI
+"""
 # a3.py
 
 # Starter code for assignment 3 in ICS 32 Programming with Software Libraries in Python
@@ -8,10 +12,6 @@
 # kellany@uci.edu
 # 28388886
 
-"""
-Main file that begins program which will run admin,
-user, and trigger the UI
-"""
 
 import ui
 import admin

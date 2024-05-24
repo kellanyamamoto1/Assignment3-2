@@ -1,10 +1,12 @@
 # Kellan Yamamoto
 # 28388886
 # kellany@uci.edu
+'''
+user module
+'''
 
 from pathlib import Path
-import admin as admin
-import ui as ui
+import ui
 
 
 def check_file(user_input):
