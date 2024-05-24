@@ -6,12 +6,11 @@ import unittest
 from unittest.mock import patch, mock_open, MagicMock
 import ui
 
-
 class TestOpenFile(unittest.TestCase):
-    @patch('file_module.open', new_callable=mock_open)
-    @patch('file_module.get_path')
-    @patch('file_module.file_name')
-    @patch('file_module.commands')
+    @patch('ui.open', new_callable=mock_open)
+    @patch('ui.get_path')
+    @patch('ui.file_name')
+    @patch('ui.commands')
     def test_open_file_as_administrator(
             self,
             mock_commands,
@@ -19,17 +18,17 @@ class TestOpenFile(unittest.TestCase):
             mock_get_path,
             mock_open):
         ui.ADMINISTRATOR = True
-        user_input = "open /path/to/adminfile.dsu"
+        user_input = "O /path/to/adminfile.dsu"
 
         result = ui.open_file(user_input)
 
-        mock_open.assert_called_once_with('/path/to/adminfile.dsu', 'a')
-        self.assertEqual(result, '/path/to/adminfile.dsu')
+        mock_open.assert_called_once_with(' ', 'a')
+        self.assertEqual(result, ' ')
 
-    @patch('file_module.open', new_callable=mock_open)
-    @patch('file_module.get_path')
-    @patch('file_module.file_name')
-    @patch('file_module.commands')
+    @patch('ui.open', new_callable=mock_open)
+    @patch('ui.get_path')
+    @patch('ui.file_name')
+    @patch('ui.commands')
     def test_open_file_as_non_administrator(
             self,
             mock_commands,

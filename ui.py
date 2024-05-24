@@ -131,9 +131,9 @@ def open_file(user_input):
         temp_path = user_input[1]
         f = open(temp_path, 'a')
         print(temp_path + " has been opened as administrator")
+        
     else:
         path = get_path()
-        print("With the file extention,")
         name = file_name()
         temp_path = path + name + '.dsu'
         f = open(temp_path, 'r+')
