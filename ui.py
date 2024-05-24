@@ -186,7 +186,7 @@ def edit_file(user_input):
             print("Post Deleted")
     else:
         profile = Profile()
-        print("Enter a dsu file path:")
+        print("Enter a dsu file path with file name and extension:")
         temp_path = input()
         profile.load_profile(path=temp_path)
         print("what would you like to edit?")
